@@ -11,7 +11,7 @@ async function addSlots(): Promise<void> {
     const batch = admin.firestore().batch();
     const slots: GroundSlot[] = [];
     const slotCount = 4;
-    const timestamp = new Date('5 January 2024, 18:00:00').getTime();
+    const timestamp = new Date('9 January 2024, 18:00:00').getTime();
 
     for (let i = 0; i < slotCount; i++) {
         const slotID = `slot-${getRandomString(15)}`;
@@ -20,18 +20,24 @@ async function addSlots(): Promise<void> {
 
         const slot = new GroundSlot
         slot.timestamp = slotTimestamp;
-        slot.facilityId = 'oboP9VEBU5jfx2cNJRsIlmRuA8it';
-        slot.groundId = 'xOVpbs2Ui45MUASgX8mXT8ouCrX5';
+        slot.facilityId = 'L4GhUo8pzZdglF9v7zf2';
+        slot.groundId = 'wMEKsvPPE2rQoKz79AVB';
         slot.allowedCount = 14;
         slot.participantCount = 0;
         slot.status = 1;
-        slot.price = 99;
+        slot.price = 149;
 
         slots.push(slot);
         batch.set(slotRef, convertObjectToFirestoreData(slot));
     }
 
-    //await batch.commit();
+    try {
+        await batch.commit();
+        console.log('done');
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 addSlots()

@@ -5,12 +5,13 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "tsc"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@ballzo-ui/core": "^1.0.27",
+    "csv-reader": "^1.0.12",
     "firebase-admin": "^12.0.0"
   }
 }
