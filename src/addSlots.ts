@@ -1,7 +1,8 @@
 import * as admin from 'firebase-admin';
 import { GroundSlot, convertObjectToFirestoreData, getRandomString } from '@ballzo-ui/core';
 
-const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json");
+// const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json"); //dev
+const serviceAccount = require("../secret-keys/football-platform-production-firebase-adminsdk-ofoor-e09ce7fcb2.json"); // prod
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -10,22 +11,22 @@ admin.initializeApp({
 async function addSlots(): Promise<void> {
     const batch = admin.firestore().batch();
     const slots: GroundSlot[] = [];
-    const slotCount = 4;
-    const timestamp = new Date('9 January 2024, 18:00:00').getTime();
+    const slotCount = 1;
+    const timestamp = new Date('9 January 2024, 20:00:00').getTime();
 
     for (let i = 0; i < slotCount; i++) {
         const slotID = `slot-${getRandomString(15)}`;
         const slotRef = admin.firestore().collection('slots').doc(slotID);
-        const slotTimestamp = timestamp + (i * 60 * 60 * 1000);
+        const slotTimestamp = timestamp;
 
         const slot = new GroundSlot
         slot.timestamp = slotTimestamp;
-        slot.facilityId = 'L4GhUo8pzZdglF9v7zf2';
-        slot.groundId = 'wMEKsvPPE2rQoKz79AVB';
+        slot.facilityId = 'p0UYXZ893UvojN5QQivW';
+        slot.groundId = 'OfUpWcZwE4oN1SDyIPgB';
         slot.allowedCount = 14;
         slot.participantCount = 0;
         slot.status = 1;
-        slot.price = 149;
+        slot.price = 145;
 
         slots.push(slot);
         batch.set(slotRef, convertObjectToFirestoreData(slot));
@@ -36,7 +37,7 @@ async function addSlots(): Promise<void> {
         console.log('done');
 
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 

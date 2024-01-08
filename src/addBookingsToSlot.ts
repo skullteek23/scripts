@@ -7,7 +7,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
 });
 
-export const SLOT_ID = 'MTYoZaqnoL3BKlKwWWi8';
+export const SLOT_ID = 'slot-g8EFGpPINm2TEto';
 async function getSlot(): Promise<GroundSlot | undefined> {
     const slotInfo = (await admin.firestore().collection('slots').doc(SLOT_ID).get()).data() as GroundSlot;
     return slotInfo;

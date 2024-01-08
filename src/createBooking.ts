@@ -2,7 +2,9 @@ import { Booking, GroundSlot, OrderRz, SlotStatus, convertObjectToFirestoreData,
 import * as admin from 'firebase-admin';
 
 const Razorpay = require("razorpay");
-const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json");
+
+// const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json"); //dev
+const serviceAccount = require("../secret-keys/football-platform-production-firebase-adminsdk-ofoor-e09ce7fcb2.json"); // prod
 const rzAccount = require("../secret-keys/razorpay.json");
 
 admin.initializeApp({
@@ -14,10 +16,14 @@ admin.initializeApp({
 
 
 
-const SLOT_ID = '';
-const SPOTS = 0
-const UID = '';
-const ORDER_ID = '';
+const SLOT_ID = 'slot-g8EFGpPINm2TEto';
+const SPOTS = 1;
+// const UID = 'kEPtKXH28JJ7L1N'; // Abhay
+// const UID = 'HJsQnItDsTPlGwX'; // Kathyat
+// const UID = 'emMgrS3qFYhuSAO1hNlvdZ5n2b22'; // Krrish
+// const UID = 'wVM9bNyXshgIuUU7g3Hb4Cwl0kr1'; // Dhanish
+const UID = 'qjOpqcmvU5PxtRecDuZhVOcYEX82'; // Sanjay
+const ORDER_ID = 'no-order-id';
 
 
 
@@ -69,24 +75,24 @@ async function createBooking(data: any): Promise<any> {
         convertObjectToFirestoreData(booking)
     );
 
-    // create order
-    try {
-        const KEY_SECRET = rzAccount.production.keySecret;
-        const KEY_ID = rzAccount.production.keyId;
+    // // create order
+    // try {
+    //     const KEY_SECRET = rzAccount.production.keySecret;
+    //     const KEY_ID = rzAccount.production.keyId;
 
-        const instance = new Razorpay(
-            { key_id: KEY_ID, key_secret: KEY_SECRET }
-        );
-        const order: Partial<OrderRz> = await instance?.orders?.create(oid);
-        order.uid = userID;
-        order.bookingId = bookingID;
-        batch.set(
-            admin.firestore().collection("orders").doc(oid),
-            convertObjectToFirestoreData(order)
-        );
-    } catch (error) {
-        Promise.reject(`Razorpay error, ${error}`);
-    }
+    //     const instance = new Razorpay(
+    //         { key_id: KEY_ID, key_secret: KEY_SECRET }
+    //     );
+    //     const order: Partial<OrderRz> = await instance?.orders?.create(oid);
+    //     order.uid = userID;
+    //     order.bookingId = bookingID;
+    //     batch.set(
+    //         admin.firestore().collection("orders").doc(oid),
+    //         convertObjectToFirestoreData(order)
+    //     );
+    // } catch (error) {
+    //     Promise.reject(`Razorpay error, ${error}`);
+    // }
 
     // Executing main batch
     try {

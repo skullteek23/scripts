@@ -2,7 +2,8 @@ import { Constants, IListOption, Player, UserWallet, convertObjectToFirestoreDat
 import * as admin from 'firebase-admin';
 import { CreateRequest } from 'firebase-admin/lib/auth/auth-config';
 
-const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json");
+// const serviceAccount = require("../secret-keys/football-platform-dev-firebase-adminsdk-zwhyn-2f830bef43.json"); //dev
+const serviceAccount = require("../secret-keys/football-platform-production-firebase-adminsdk-ofoor-e09ce7fcb2.json"); // prod
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -11,8 +12,8 @@ admin.initializeApp({
 // ----------------------------------------------
 
 const UID = ''; // (OPTIONAL)
-const PLAYER_NAME = '';
-const PHONE_NUMBER = ''; // WITHOUT CODE
+const PLAYER_NAME = 'Vikram Kathyat';
+const PHONE_NUMBER = '8587873386'; // WITHOUT CODE
 
 // ----------------------------------------------
 function getUserObj(uid: string, displayName: string, phoneNumber: string): CreateRequest {
